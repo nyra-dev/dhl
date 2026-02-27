@@ -5,7 +5,7 @@ namespace Nyra\Dhl\Dto;
 /**
  * Order item for PDF shopping cart.
  */
-final class AppShoppingCartPDFPosition extends AppShoppingCartPosition
+final class ShoppingCartPDFPosition extends ShoppingCartPosition
 {
     public function __construct(
         int $productCode,

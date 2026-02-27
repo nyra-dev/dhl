@@ -7,7 +7,7 @@ namespace Nyra\Dhl\Dto;
  */
 final readonly class LabelPdfRequest
 {
-    /** @param list<AppShoppingCartPDFPosition> $positions */
+    /** @param list<ShoppingCartPDFPosition> $positions */
     public function __construct(
         public int     $total,
         public array   $positions,
@@ -30,7 +30,7 @@ final readonly class LabelPdfRequest
             'createShippingList' => $this->createShippingList,
             'dpi' => $this->dpi,
             'pageFormatId' => $this->pageFormatId,
-            'positions' => array_map(static fn(AppShoppingCartPDFPosition $position) => $position->toArray(), $this->positions),
+            'positions' => array_map(static fn(ShoppingCartPDFPosition $position) => $position->toArray(), $this->positions),
         ], static fn($v) => $v !== null);
     }
 }

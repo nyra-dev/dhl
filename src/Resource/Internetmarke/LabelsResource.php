@@ -3,7 +3,7 @@
 namespace Nyra\Dhl\Resource\Internetmarke;
 
 use Nyra\Dhl\Resource\BaseResource;
-use Nyra\Dhl\Dto\CheckoutShoppingCartAppResponse;
+use Nyra\Dhl\Dto\CheckoutShoppingCartResponse;
 use Nyra\Dhl\Dto\LabelPdfRequest;
 use Nyra\Dhl\Dto\LabelPngRequest;
 use Nyra\Dhl\Dto\LabelPreviewPdfRequest;
@@ -15,7 +15,7 @@ final class LabelsResource extends BaseResource
         LabelPngRequest|LabelPreviewPngRequest $request,
         bool                                   $validate = false,
         bool                                   $directCheckout = false
-    ): CheckoutShoppingCartAppResponse
+    ): CheckoutShoppingCartResponse
     {
         $query = [];
         if ($validate) {
@@ -27,14 +27,14 @@ final class LabelsResource extends BaseResource
 
         $data = $this->decode($this->post('/app/shoppingcart/png', $query, $request->toArray()));
 
-        return CheckoutShoppingCartAppResponse::fromArray($data);
+        return CheckoutShoppingCartResponse::fromArray($data);
     }
 
     public function checkoutPdf(
         LabelPdfRequest|LabelPreviewPdfRequest $request,
         bool                                   $validate = false,
         bool                                   $directCheckout = false
-    ): CheckoutShoppingCartAppResponse
+    ): CheckoutShoppingCartResponse
     {
         $query = [];
         if ($validate) {
@@ -46,6 +46,6 @@ final class LabelsResource extends BaseResource
 
         $data = $this->decode($this->post('/app/shoppingcart/pdf', $query, $request->toArray()));
 
-        return CheckoutShoppingCartAppResponse::fromArray($data);
+        return CheckoutShoppingCartResponse::fromArray($data);
     }
 }

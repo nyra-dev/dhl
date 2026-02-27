@@ -5,7 +5,7 @@ namespace Nyra\Dhl\Dto;
 /**
  * Order item for PNG shopping cart.
  */
-class AppShoppingCartPosition
+class ShoppingCartPosition
 {
     public function __construct(
         public readonly int $productCode,

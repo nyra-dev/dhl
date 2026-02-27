@@ -2,7 +2,7 @@
 
 namespace Nyra\Dhl\Dto;
 
-final readonly class CheckoutShoppingCartAppResponse
+final readonly class CheckoutShoppingCartResponse
 {
     public function __construct(
         public string       $link,

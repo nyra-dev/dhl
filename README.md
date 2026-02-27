@@ -18,7 +18,7 @@ use Nyra\Dhl\Auth\Credentials;
 use Nyra\Dhl\DhlClient;
 use Nyra\Dhl\Dto\Address;
 use Nyra\Dhl\Dto\AddressBinding;
-use Nyra\Dhl\Dto\AppShoppingCartPDFPosition;
+use Nyra\Dhl\Dto\ShoppingCartPDFPosition;
 use Nyra\Dhl\Dto\LabelPdfRequest;
 use Nyra\Dhl\Dto\VoucherLayout;
 use Nyra\Dhl\Dto\VoucherPosition;
@@ -46,7 +46,7 @@ $response = $dhl->internetmarke->labels->checkoutPdf(
     request: new LabelPdfRequest(
         total: 5,
         positions: [
-            new AppShoppingCartPDFPosition(
+            new ShoppingCartPDFPosition(
                 productCode: 298,
                 voucherLayout: VoucherLayout::ADDRESS_ZONE,
                 position: new VoucherPosition(labelX: 1, labelY: 1, page: 1),
