@@ -11,12 +11,37 @@ final readonly class ErrorResponse
     ) {
     }
 
+    /**
+     * DHL's APIs do not all answer errors alike: the INTERNETMARKE API uses
+     * `statusCode`, `title` and `description`, the API gateway and others use
+     * RFC 7807 problem details (`status`, `title`, `detail`) or a `message`.
+     * Each field takes the first of its names that is set and not empty.
+     *
+     * @param array<mixed> $data
+     */
     public static function fromArray(array $data): self
     {
         return new self(
-            statusCode: (string) ($data['statusCode'] ?? ''),
-            title: (string) ($data['title'] ?? ''),
-            description: (string) ($data['description'] ?? '')
+            statusCode: self::first($data, ['statusCode', 'status', 'code']),
+            title: self::first($data, ['title', 'error']),
+            description: self::first($data, ['description', 'detail', 'message', 'error_description'])
         );
+    }
+
+    /**
+     * @param array<mixed> $data
+     * @param list<string> $keys
+     */
+    private static function first(array $data, array $keys): string
+    {
+        foreach ($keys as $key) {
+            $value = $data[$key] ?? null;
+
+            if (is_scalar($value) && trim((string) $value) !== '') {
+                return trim((string) $value);
+            }
+        }
+
+        return '';
     }
 }

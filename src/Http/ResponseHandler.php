@@ -26,13 +26,17 @@ final class ResponseHandler
     public static function decodeOrThrow(ResponseInterface $response): array
     {
         $status = $response->getStatusCode();
-        $data = self::decode($response);
 
         if ($status >= 400) {
-            $error = $data !== [] ? ErrorResponse::fromArray($data) : null;
-            throw new ApiException($status, $error);
+            // error bodies are not always JSON (e.g. an HTML page from a proxy):
+            // the status must not be lost to a JsonException
+            $body = (string) $response->getBody();
+            $data = json_decode($body, true);
+            $error = is_array($data) && $data !== [] ? ErrorResponse::fromArray($data) : null;
+
+            throw new ApiException($status, $error, body: $body);
         }
 
-        return $data;
+        return self::decode($response);
     }
 }
