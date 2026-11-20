@@ -86,4 +86,4 @@ composer test
 ## Notes
 
 - HTTP client defaults to Guzzle via PSR-18; you can pass any PSR-18 client and PSR-16-like token cache implementing `TokenCacheInterface`.
-- Error responses are thrown as `ApiException` with parsed error payload when status code >= 400.
+- Error responses (status code >= 400) are thrown as `ApiException`: `statusCode`, the parsed `error` payload (`ErrorResponse`, read from the INTERNETMARKE fields `statusCode`/`title`/`description` as well as RFC 7807 `status`/`detail`, `message` and OAuth `error`/`error_description`) and the raw `body`. The message is the error's description, else its title, else the start of the body, else `API error (HTTP <status>)`; it is never empty, and an error body that is not JSON no longer hides the status behind a `JsonException`.
